@@ -1,16 +1,30 @@
 package dao;
 
+import entities.Categorie;
 import entities.Produit;
 
+
+import java.util.Date;
 import java.util.List;
 public class TestDao {
     public static void main(String[] args) {
-        ProduitDaoImpl pdao= new ProduitDaoImpl();
-        Produit prod=pdao.save( new Produit("tévé",3500));
-        System.out.println(prod);
-        List<Produit> prods =pdao.produitsParMC("tévé");
-        for (Produit p : prods)
-            System.out.println(p);
+        ProduitDaoImpl pdao = new ProduitDaoImpl();
+        CategorieDaoImpl cdao = new CategorieDaoImpl();
+        ICategorieDao metierCat;
+          metierCat = new CategorieDaoImpl();
+        Date d = new Date();
+        Categorie c = new Categorie("elect", d);
+        //cdao.save(c);
+        // pdao.save(p);
+        for (Categorie cat : cdao.getAllCategories()) {
+            System.out.println(cat.toString());
+        }
+        List<Categorie> cats = metierCat.getAllCategories();
+        List<Produit> prods = pdao.produitsParMC("laptop");
+        for (Produit p1 : prods)
+            System.out.println(p1);
+
+
 
     }
 }

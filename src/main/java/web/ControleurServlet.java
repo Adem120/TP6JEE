@@ -1,7 +1,10 @@
 package web;
 
+import dao.CategorieDaoImpl;
+import dao.ICategorieDao;
 import dao.IProduitDao;
 import dao.ProduitDaoImpl;
+import entities.Categorie;
 import entities.Produit;
 
 import javax.servlet.ServletException;
@@ -14,9 +17,11 @@ import java.util.List;
 @WebServlet (name="cs",urlPatterns= {"/controleur","*.do"})
 public class ControleurServlet extends HttpServlet {
     IProduitDao metier;
+    ICategorieDao metierCat;
     @Override
     public void init() throws ServletException {
         metier = new ProduitDaoImpl();
+        metierCat = new CategorieDaoImpl();
     }
     @Override
     protected void doGet(HttpServletRequest request,
@@ -39,21 +44,25 @@ public class ControleurServlet extends HttpServlet {
             request.getRequestDispatcher("produits.jsp").forward(request,response);
         }
         else if (path.equals("/saisie.do") )
+
         {
+            List<Categorie> cats = metierCat.getAllCategories();
+            CategorieModele model= new CategorieModele();
+            model.setCategories(cats);
+            request.setAttribute("catModel", model);
+
             request.getRequestDispatcher("saisieProduit.jsp").forward(request,response);
         }
-        else if (path.equals("/save.do") &&
-
-                request.getMethod().equals("POST"))
+        else if (path.equals("/save.do") && request.getMethod().equals("POST"))
 
         {
             String nom=request.getParameter("nom");
+            Long categorieId=Long.parseLong(request.getParameter("categorie"));
             double prix = Double.parseDouble(request.getParameter("prix"));
-            Produit p = metier.save(new Produit(nom,prix));
+            Categorie cat = metierCat.getCategorie(categorieId);
+            Produit p = metier.save(new Produit(nom,prix,cat));
             request.setAttribute("produit", p);
-
-            response.sendRedirect("chercher.do?motCle=");
-        }
+            response.sendRedirect("chercher.do?motCle="); }
         else if (path.equals("/supprimer.do"))
         {
             Long id= Long.parseLong(request.getParameter("id"));
@@ -61,28 +70,31 @@ public class ControleurServlet extends HttpServlet {
             response.sendRedirect("chercher.do?motCle=");
         }
         else if (path.equals("/editer.do") )
+
         {
             Long id= Long.parseLong(request.getParameter("id"));
             Produit p = metier.getProduit(id);
             request.setAttribute("produit", p);
+            List<Categorie> cats = metierCat.getAllCategories();
+            CategorieModele model= new CategorieModele();
+            model.setCategories(cats);
+            request.setAttribute("catModel", model);
             request.getRequestDispatcher("editerProduit.jsp").forward(request,response);
         }
         else if (path.equals("/update.do") )
-        {
-            Long id = Long.parseLong(request.getParameter("id"));
-            String nom=request.getParameter("nom");
-            double prix =
 
-                    Double.parseDouble(request.getParameter("prix"));
+        { Long id = Long.parseLong(request.getParameter("id"));
+            String nom=request.getParameter("nom");
+            double prix = Double.parseDouble(request.getParameter("prix"));
+            Long categorieId=Long.parseLong(request.getParameter("categorie"));
             Produit p = new Produit();
             p.setIdProduit(id);
             p.setNomProduit(nom);
             p.setPrix(prix);
+            Categorie cat = metierCat.getCategorie(categorieId);
+            p.setCategorie(cat);
             metier.updateProduit(p);
-            request.setAttribute("produit", p);
-
             response.sendRedirect("chercher.do?motCle=");
-
         }
 
     }

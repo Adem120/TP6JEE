@@ -1,11 +1,10 @@
 package entities;
 
 
-import org.hibernate.annotations.Columns;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
+    import entities.Categorie;
 @Entity
 @Table(name = "produits")
 public class Produit implements Serializable {
@@ -16,14 +15,31 @@ public class Produit implements Serializable {
     @Column (name="NOM_PRODUIT")
     private String nomProduit;
     private double prix;
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+@ManyToOne
+private Categorie categorie;
     public Produit() {
         super();
     }
-    public Produit(String nomProduit, double prix) {
+
+    public Produit(String nomProduit, double prix,Categorie cat) {
+
         super();
         this.nomProduit = nomProduit;
         this.prix = prix;
+        this.setCategorie(cat);
     }
+    public Categorie getCategorie() {
+        return categorie;
+    }
+    public void setCategorie(Categorie categorie) {
+        this.categorie = categorie;
+    }
+
     public Long getIdProduit() {
         return idProduit;
     }

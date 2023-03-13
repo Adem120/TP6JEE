@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="db8e0028-a8cb-45d0-873d-8d78bc7cd75e" name="DB_MVC_CAT2@localhost Mapping">
+      <data-sources db="f6dd6dc6-cc18-4db4-8abe-349b73a7812a" />
+      <scope>
+        <node kind="schema" qname="db_mvc_cat2" />
+      </scope>
+    </mapping>
+  </component>
+</project>

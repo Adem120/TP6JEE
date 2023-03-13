@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: adem99
+  Date: 09/03/2023
+  Time: 22:50
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page language="java" contentType="text/html; charset=windows-1256"
          pageEncoding="windows-1256"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -6,7 +13,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
-    <title>Insert title here</title>
+    <title>Saisie Catégorie</title>
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -15,24 +22,17 @@
 <div class="container">
     <div class="card">
         <div class="card-header">
-            Saisie des Produits
+            Saisie des Catégories
         </div>
         <div class="card-body">
-            <form action="save.do" method="post">
+            <form action="saveCategorie" method="post">
                 <div class="form-group">
-                    <label class="control-label">Nom Produit :</label>
+                    <label class="control-label">Nom Catégorie :</label>
                     <input type="text" name="nom" class="form-control"/>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Prix :</label>
-                    <input type="text" name="prix" class="form-control"/>
-                </div>
-                <div class="form-group">
-                    <select name="categorie" class="form-control">
-                        <c:forEach items="${catModel.categories}" var="cat">
-                            <option value="${cat.idCat}">${cat.nomCat}</option>
-                        </c:forEach>
-                    </select>
+                    <label class="control-label">Date Catégorie : </label>
+                    <input type="date" name="dateCat" class="form-control" ></input>
                 </div>
                 <div>
                     <button type="submit" class="btn btn-primary">Ajouter</button>
