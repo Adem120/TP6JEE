@@ -18,10 +18,15 @@ import java.util.List;
 public class ControleurServlet extends HttpServlet {
     IProduitDao metier;
     ICategorieDao metierCat;
+    CategorieModele model2= new CategorieModele();
+
+
     @Override
     public void init() throws ServletException {
         metier = new ProduitDaoImpl();
         metierCat = new CategorieDaoImpl();
+        List<Categorie> cats = metierCat.getAllCategories();
+        model2.setCategories(cats);
     }
     @Override
     protected void doGet(HttpServletRequest request,
@@ -32,16 +37,41 @@ public class ControleurServlet extends HttpServlet {
         {
             request.getRequestDispatcher("produits.jsp").forward(request,response);
         }
+        else if (path.equals("/index2.do"))
+        {
+
+
+            request.setAttribute("catModel", model2);
+
+            request.getRequestDispatcher("produitcat.jsp").forward(request,response);
+        }
         else if (path.equals("/chercher.do"))
         {
             String motCle=request.getParameter("motCle");
             ProduitModele model= new ProduitModele();
             model.setMotCle(motCle);
             List<Produit> prods = metier.produitsParMC(motCle);
+
             model.setProduits(prods);
             request.setAttribute("model", model);
 
             request.getRequestDispatcher("produits.jsp").forward(request,response);
+        }  else if (path.equals("/cherchercat.do"))
+        {
+
+
+            String cat=request.getParameter("categorie");
+            Long id=Long.parseLong(cat);
+            ProduitModele model= new ProduitModele();
+            request.setAttribute("catModel", model2);
+
+            model.setMotCle(cat);
+            List<Produit> prods = metierCat.produitsParcat(id);
+            model.setProduits(prods);
+
+            request.setAttribute("model", model);
+            request.setAttribute("cat", cat);
+            request.getRequestDispatcher("produitcat.jsp").forward(request,response);
         }
         else if (path.equals("/saisie.do") )
 

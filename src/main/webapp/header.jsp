@@ -13,6 +13,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="saisieCategorie">Saisie Categorie</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index2.do">RecharcheParcat</a>
+            </li>
         </ul>
     </div>
 </nav>

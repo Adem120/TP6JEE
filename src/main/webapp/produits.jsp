@@ -21,8 +21,9 @@
             <form action="chercher.do" method="get">
                 <label>Mot Clé</label>
                 <input type="text" name="motCle" value="${model.motCle}" />
-                <button type="submit" class="btn btn-primary">Chercher</button>
+                <button type="submit" class="btn btn-primary mb-3">Chercher</button>
             </form>
+
             <table class="table table-striped">
                 <tr>
                     <th>ID</th><th>Nom Produit</th><th>Prix</th><th>Catégorie</th> <th colspan="2">Actions</th>               </tr>
@@ -30,7 +31,7 @@
                     <tr>
                         <td>${p.idProduit }</td>
                         <td>${p.nomProduit }</td>
-                        <td>${p.prix }</td>
+                        <td>${p.prix } D</td>
                         <td>${p.categorie.nomCat }</td>
                         <td><a onclick="return confirm('Etes-vous sûr ?')"
                                href="supprimer.do?id=${p.idProduit }">Supprimer</a></td>

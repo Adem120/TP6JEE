@@ -10,11 +10,18 @@ public class TestDao {
     public static void main(String[] args) {
         ProduitDaoImpl pdao = new ProduitDaoImpl();
         CategorieDaoImpl cdao = new CategorieDaoImpl();
+
         ICategorieDao metierCat;
-          metierCat = new CategorieDaoImpl();
-        Date d = new Date();
-        Categorie c = new Categorie("elect", d);
-        //cdao.save(c);
+        List<Produit> prod;
+        metierCat = new CategorieDaoImpl();
+
+        prod = metierCat.produitsParcat(8L);
+        System.out.println(prod);
+
+       /* Date d = new Date();
+        Categorie c = new Categorie("machine", d);
+        cdao.save(c);
+
         // pdao.save(p);
         for (Categorie cat : cdao.getAllCategories()) {
             System.out.println(cat.toString());
@@ -26,5 +33,6 @@ public class TestDao {
 
 
 
+    }*/
     }
 }
